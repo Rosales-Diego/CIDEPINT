@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+{% block title %}Listado de usuarios con roles{% endblock %}
+{% block head %}
+Roles
+{% endblock %}
+{% block content %}
+<div class="container-fluid p-3">
+    <p>
+    <h1 class="text-center">Institucion {{insName.name}}</h1>
+    </p>
+    <div class="text-center">
+        <a href="{{ url_for('service.list_services', institution_id=ins) }}"> <button>Servicios que Ofrece</button> </a>
+    </div>
+
+    <div class="m-1 p-1">
+        {% if ins != None %}
+        <form action="{{ url_for('relation.new',institution_id=ins) }}" method="post">
+            <input type="text" name="institution_id" id="" hidden="True">
+            <button class="btn btn-success" type="submit">Nuevo Rol</button>
+        </form>
+        {% endif %}
+    </div>
+    <div>
+        <form action="{{ url_for('relation.update',institution_id=ins) }}" method="POST">
+            <input type="text" name="email" id="" placeholder="Ingrese Email">
+            <input class="btn btn-primary" name="buscar" type="submit" value="Buscar" />
+        </form>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Activo</th>
+                <th>Rol</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{usub.email}}</td>
+                <td>{{usub.name}}</td>
+                <td>{{usub.last_name}}</td>
+                <td>{{usub.active}}</td>
+                <form 
+                    action="{{ url_for('relation.update',institution_id=ins) }}" method="POST">
+                    <td>
+                        <select name="newRol" 
+                        {% if usubRol == None or usub == None %}
+                            disabled = "True"
+                        {% endif %}
+                        >
+                            {%for rol in roles %}
+                            <option value="{{rol.id}}" {% if rol.id == usubRol.role_id %}selected="True"{% endif %}>{{rol.name.value}}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <input class="btn btn-primary" 
+                        type="submit" 
+                        name="Actualizar" 
+                        value="Actualizar" 
+                        {% if usubRol == None or usub == None %}
+                            disabled = "True"
+                        {% endif %}
+                        >
+                    </td>
+                    <td><input class="btn btn-danger" 
+                        type="submit"
+                        name="Eliminar"
+                        value="Eliminar"
+                        {% if usubRol == None or usub == None %}
+                            disabled = "True"
+                        {% endif %}
+                        >
+                        <input type="text" name="email" id="" value="{{usub.email}}" hidden="True">
+                    </td>
+                </form>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center">
+        <table class="table table-striped">
+            <h1 for="" class="text-center h1">Listado de Empleados</h1>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Activo</th>
+                    <!-- <th>Eliminar</th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for usu in users %}
+                <tr>
+                    <td>{{usu.email}}</td>
+                    <td>{{usu.name}}</td>
+                    <td>{{usu.last_name}}</td>
+                    <td>{{usu.active}}</td>
+                    <!-- <td><a class="btn btn-danger" href="/relation/new/{{ins.id}}">Eliminar</a></td> -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

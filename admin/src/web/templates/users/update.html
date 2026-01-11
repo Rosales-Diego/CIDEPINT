@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Actualizar información de usuario</h1>
+
+<form method="POST" action="/usuarios/editar/{{user.id}}">
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label }}</label>
+        {{ field(class="form-control") }}
+        {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Actualizar</button>
+</form>
+
+<a href="/usuarios" >Volver al listado de usuarios</a>
+
+{% endblock %}

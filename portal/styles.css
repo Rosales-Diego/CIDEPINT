@@ -1,0 +1,18 @@
+/* styles.css */
+/* respaldo */
+body {
+    background-color: white;
+    margin: 0; /* Asegura que no haya márgenes por defecto en el body */
+    padding: 0; /* Asegura que no haya relleno por defecto en el body */
+}
+
+/* Reset de estilos */
+body, div, p, h1, h2, h3, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Otros estilos... */
+  
+  

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+    Página Principal
+{% endblock %}
+
+{% block content %}
+
+    {% if is_authenticated(session) %}
+
+        <h1>Bienvenido de nuevo</h1>
+
+    {% else %}
+        <h1>Bienvenido, queremos conocerte</h1>
+            <ul>
+                <h3>Si ya te registraste</h3>
+                <a class="more-link" href="/auth">Logeate</a>
+                <h3>Si sos nuevo</h3>
+                <a class="more-link" href="/auth/register">Registrate</a>
+            </ul>
+
+    {% endif%}     
+{% endblock %}
+
+

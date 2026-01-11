@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block title %}Listado de solicitudes{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<h1 class="title" align="center"> Listado de solicitudes </h1>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Estado</th>
+            <th>Comentarios</th>
+            <th>Tipo de Servicio</th>
+            <th>Última actualización</th>
+            <th>Creado</th>
+        </tr>
+    </thead>
+
+    {% if requests %}
+        <tbody>
+            {% for solicitude in requests %}
+                <tr>
+                    <td>{{ solicitude.id }}</td>
+                    <td>{{ solicitude.service_name}}
+                    <td>{{ solicitude.status.value.capitalize() }}</td>
+                    <td>{{ solicitude.comment }}
+                        <form method="post" action="{{ url_for('service.show_notas', solicitud_id=solicitude.id) }}">
+                            <button type="submit"> Ver chat</button>
+                        </form>
+
+                    </td>
+                    <td>{{ solicitude.type_of_service.value }}</td>
+                    <td>{{ solicitude.updated_at.strftime('%d %b %Y') }}</td>
+                    <td>{{ solicitude.inserted_at.strftime('%d %b %Y') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+
+    
+{% endblock %}

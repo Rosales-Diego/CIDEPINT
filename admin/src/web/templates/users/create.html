@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}Crear Nuevo Usuario{% endblock %}
+
+{% block head %}
+    Página para Crear Nuevo Usuario
+{% endblock %}
+
+{% block content %}
+<h1>Crear Usuarios</h1>
+
+<form method="POST" action="/usuarios/create">
+    {{ form.hidden_tag() }}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id }}">{{ field.label }}</label>
+        {{ field(class="form-control") }}
+        {% for error in field.errors %}
+        <p class="error">{{ error }}</p>
+        {% endfor %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Registrar</button>
+</form>
+
+<a href="/usuarios" >Volver al listado de usuarios</a>
+
+{% endblock %}

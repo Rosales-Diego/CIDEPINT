@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}Listado de Instituciones{% endblock %}
+{% block head %}
+Instituciones
+{% endblock %}
+{% block content %}
+
+<div>
+    <form action="{{ url_for('institutions.list_institutions', institution_id=institution_id) }}" method="POST">
+        <input type="text" name="claves" id="" placeholder="Buscar por palabras clave">
+        
+        <input class="btn btn-primary" type="submit" value="Buscar" />
+    </form>
+        
+</div>
+
+<a href="{{ url_for('institutions.get_create') }}" class="btn btn-primary">Crear Insitutución</a>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Información de Contacto</th>
+            <th>Dirección</th>
+            <th>Localización</th>
+            <th>Página Web</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+
+
+    {% if items %}
+
+        {%  for inst in items %}
+            <tbody>
+                <tr>
+                    <td>{{inst.name}}</td>
+                    <td>{{inst.contact_info}}</td>
+                    <td>{{inst.address}}</td>
+                    <td>{{inst.location}}</td>
+                    <td>{{inst.web}}</td>
+                    
+                    
+                    <td><a href="{{ url_for('institutions.show', id = inst.id) }}" class="btn btn-primary">Ver</a></td>                   
+                </tr>
+            </tbody>
+        {% endfor %}
+
+        
+    {% endif %}
+</table>
+<div class="pagination">
+    <span>Página {{ page }} de {{ total_pages }}</span>
+    <br>
+    <br>
+    {% if page > 1 %}
+        <a href="?page=1">Primera   </a>
+        <a href="?page={{ page - 1 }}">Anterior    </a>
+    {% endif %}
+    {% if page < total_pages %}
+        <a href="?page={{ page +1  }}">Siguiente      </a>
+        <a href="?page={{ total_pages }}">Última      </a>
+    {% endif %}
+</div>
+    
+ 
+    
+{% endblock %}
+

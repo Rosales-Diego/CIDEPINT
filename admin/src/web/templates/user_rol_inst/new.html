@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% block content %}
+<div>
+    <p>
+        <h1 class="text-center">Institucion {{inst_name}}</h1>
+    </p>
+
+    <div class="text-center">
+        <form action="/relation/new/{{institution_id}}" method="POST">
+            <input type="text" name="email" id="" placeholder="Ingrese Email">
+            <input class="btn btn-primary" type="submit" name="Buscar" value="Buscar" />
+        </form>
+        <div class="text-center">
+            <div class="text-center bg m-2 p-2">
+                <label for="" class="text-center h2"></label>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Activo</th>
+                            <th>Seleccione un Rol</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>{{userb.email}}</td>
+                            <td>{{userb.name}}</td>
+                            <td>{{userb.last_name}}</td>
+                            <td>{{userb.active}}</td>
+                            <form action="/relation/new/{{institution_id}}" method="POST">
+                                <td> 
+                                    <select name="new_rol" id=""
+                                    {%if userb == None or role != None %}disabled="True"{% endif %}>
+                                    {%for rol in roles %}
+                                    <option value="{{rol.id}}" {% if rol.id == role %}selected="True"{% endif %}>{{rol.name.value}}</option>
+                                    {% endfor %}
+                                    </select>
+                                </td>
+                                <td><input class="btn btn-primary" type="submit" name="Crear" value="Crear" 
+                                    {%if userb == None or role != None %}disabled="True"{% endif %}/>
+                                </td>
+                                <input type="text" name="email" id="" value="{{userb.email}}" hidden="True">
+                            </form>
+                        </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    {% endblock %}

@@ -1,0 +1,118 @@
+
+.csrf-token {
+    display: none;
+}
+
+/* Estilos para el header */
+header {
+    background-color: #fff;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid #000;
+}
+
+/* Estilos para el Dropdown de usuario/cuenta */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.user-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    background-image: url('../img/user.png'); /* Cambia 'ruta-a-la-imagen-de-usuario.png' por la ruta de tu imagen genérica de usuario */
+    background-size: 24px 24px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    background-repeat: no-repeat;
+    background-position: 10px center; /* Ajusta la posición de la imagen según tus necesidades */
+    padding-left: 40px; /* Añade espacio para la imagen a la izquierda del texto */
+}
+
+.user-dropdown-content {
+    display: none;background-color: #333;
+    color: #fff;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.user-dropdown-content a {
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.user-dropdown-content a:hover {
+    background-color: #444;
+}
+
+.user-dropdown:hover .user-dropdown-content {
+    display: block;
+}
+
+/* Estilos para los botones de acceso a seguimientos y modificación */
+.tracking-button, .modify-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tracking-button:hover, .list-institution-button:hover {
+    background-color: #0056b3;
+}
+
+
+.tracking-button, .list-institution-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tracking-button:hover, .modify-button:hover {
+    background-color: #0056b3;
+}
+/* Estilos para el Dropdown de institución */
+.institution-dropdown select {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px;
+}
+
+.error {
+    background-color: #FF5733; /* Rojo */
+    border: 2px solid #D32F2F;
+    color: white;
+}
+
+.info {
+    background-color: #33A1DE; /* Celeste */
+    border: 2px solid #1E88E5;
+    color: white;
+}
+
+.success {
+    background-color: #4CAF50; /* Verde */
+    border: 2px solid #388E3C;
+    color: white;
+}
+
+.flash-message-content {
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+

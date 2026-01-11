@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+{% extends "layout.html" %}
+
+{% block title %}Crear Nuevo Servicio{% endblock %}
+
+{% block head %}
+    Página para Crear Nuevo Servicio
+{% endblock %}
+
+{% block content %}
+
+<h1>Crear Institución</h1>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
+        <div>
+            {{ form.nombre.label }}
+            {{ form.nombre(size=50) }}
+            {% if form.nombre.errors %}
+                {{ form.nombre.errors }}
+            {% endif %}
+        </div>
+        
+        <div>
+            {{ form.localizacion.label }}
+            
+            <input type="hidden" name="localizacion" id="localizacion" value="-34.9214, -57.9544">
+            {% if form.localizacion.errors %}
+                {{ form.localizacion.errors }}
+            {% endif %}
+        </div>
+
+
+        <div id="map" style="height: 300px;"></div>
+        <input type="hidden" name="coordenadas" id="coordenadas" value="-34.9214, -57.9544">
+        
+        <div>
+            {{ form.descripcion.label }}
+            {{ form.descripcion(size=50) }}
+            {% if form.descripcion.errors %}
+                {{ form.descripcion.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.direccion.label }}
+            {{ form.direccion(size=50) }}
+            {% if form.direccion.errors %}
+                {{ form.direccion.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.web.label }}
+            {{ form.web(size=50) }}
+            {% if form.web.errors %}
+                {{ form.web.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.palabras_claves.label }}
+            {{ form.palabras_claves(size=50) }}
+            {% if form.palabras_claves.errors %}
+                {{ form.palabras_claves.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.horario.label }}
+            {{ form.horario(size=50) }}
+            {% if form.horario.errors %}
+                {{ form.horario.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.estado.label }}
+            {{ form.estado }}
+            {% if form.estado.errors %}
+                {{ form.estado.errors }}
+            {% endif %}
+        </div>
+        <div>
+            {{ form.telefono.label }}
+            {{ form.telefono(size=50) }}
+            {% if form.telefono.errors %}
+                {{ form.telefono.errors }}
+            {% endif %}
+        </div>
+        <div>
+            <button type="submit">Crear Institución</button>
+        </div>
+        
+</form>
+
+<a href="/instituciones" >Volver al listado de instituciones</a>
+
+<script>
+    // Inicializar el mapa con Leaflet
+    var initialLocation = [-34.9214, -57.9544];
+    var map = L.map('map').setView(initialLocation, 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Añadir un marcador existente
+    var marker = L.marker(initialLocation).addTo(map);
+
+    // Manejar el clic en el mapa para actualizar las coordenadas
+    map.on('click', function(e) {
+        marker.setLatLng(e.latlng);
+        document.getElementById('coordenadas').value = e.latlng.lat + ',' + e.latlng.lng;
+
+        // Imprimir las coordenadas en la consola
+        console.log("Nuevas Coordenadas:", e.latlng.lat, e.latlng.lng);
+    
+        // Actualizar el valor del campo de localización con las nuevas coordenadas
+        document.getElementById('localizacion').value = e.latlng.lat + ',' + e.latlng.lng;
+    });
+
+    document.querySelector('form').addEventListener('submit', function() {
+        document.getElementById('coordenadas').value = marker.getLatLng().lat + ',' + marker.getLatLng().lng;
+    });
+
+</script>
+
+
+{% endblock %}

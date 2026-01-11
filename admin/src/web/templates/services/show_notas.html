@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat.css') }}">
+    <title>Show Notas</title>
+</head>
+<body>
+    <div class="notes-container">
+        {% for note in notes %}
+            <div class="note {% if note.user_id == current_user%}own-note{% endif %}">
+                <p>{{ note.content }}</p>
+                <small>{{ note.inserted_at }}</small>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <form method="post" action="{{ url_for('service.show_notas_add',solicitud_id=solicitud_id) }}">
+        <input type="text" name="comment" placeholder="Nuevo comentario">
+        <button type="submit">send</button>
+    </form>
+
+</body>
+{% endblock %}

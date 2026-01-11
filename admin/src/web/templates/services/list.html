@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Listado de Servicios{% endblock %}
+{% block head %}
+    Servicios
+{% endblock %}
+{% block content %}
+    <a href="{{ url_for('service.create', institution_id=institution_id) }}" class="btn btn-primary">Create</a>
+    <form action="{{ url_for('service.list_services', institution_id=institution_id) }}" method="POST">
+        <input type="text" name="search" placeholder="Buscar por palabras clave">
+        <input type="submit" value="Buscar">
+    </form>
+    <br>
+    <table class="table table-striped" border="1">
+        <thead>
+            <tr>
+                <th>Nombre del Servicio</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+
+        {% if services%}
+            {% for service in services %}
+            <tr>
+                <td>{{ service.name }}</td>
+                <td>
+                    <a href="{{ url_for('service.show', service_id=service.id , user_id=user_id) }}" class="btn btn-primary">Show</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+    </table>
+{% endblock %}

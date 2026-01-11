@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.notes-container {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.note {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.own-note {
+    background-color: #dcf8c6;  /* Cambia este color según tus preferencias */
+}

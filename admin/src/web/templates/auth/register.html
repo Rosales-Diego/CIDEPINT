@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <h1>Hola! Queremos conocerte, como primer paso ingresa tu dirección de email</h1>
+    <form action="{{ url_for('auth.validate_register') }}" method="POST">
+        <input type="email" name="email" placeholder="Correo" required><br><br>
+        <input type="submit" value="Registrarse">
+    </form>
+
+{% endblock %}

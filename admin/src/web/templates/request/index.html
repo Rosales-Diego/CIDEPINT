@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %}Listado de solicitudes{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<h1 class="title" align="center"> Listado de solicitudes </h1>
+<br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Servicio</th>
+            <th>Estado</th>
+            <th>Tipo de Servicio</th>
+            <th>Última actualización</th>
+            <th>Creado</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+
+    {% if items %}
+        <tbody>
+            {% for solicitude in items %}
+                <tr>
+                    <td>{{ solicitude.id }}</td>
+                    <td>{{ solicitude.service_name}}
+                    <td>{{ solicitude.status.value.capitalize() }}</td>
+                    <td>{{ solicitude.type_of_service.value }}</td>
+                    <td>{{ solicitude.updated_at.strftime('%d %b %Y') }}</td>
+                    <td>{{ solicitude.inserted_at.strftime('%d %b %Y') }}</td>
+                    <td><a href="{{ url_for('institutions.show', id=solicitude.id) }}" class="btn btn-primary">Ver</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    {% endif %}
+</table>
+
+    
+{% endblock %}

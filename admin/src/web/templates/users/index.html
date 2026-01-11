@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Listado de Usuarios{% endblock %}
+{% block head %}
+Usuarios
+{% endblock %}
+{% block content %}
+
+<a href="{{ url_for('users.get_create') }}" class="btn btn-primary">Crear Usuario</a>
+<br>
+
+<div>
+    <form action="/usuarios/" method="POST">
+        <input type="text" name="email" id="" placeholder="Ingrese Email">
+        <label for="activo">Estado:</label>
+        
+        <select name="activo" id="activo">
+            <option value="">Todos</option>
+            <option value="activo">Activo</option>
+            <option value="bloqueado">Bloqueado</option>
+        </select>
+        <input class="btn btn-primary" type="submit" value="Buscar" />
+    </form>
+        
+</div>
+
+<h2> Usuarios filtrados </h2><br>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Activo</th>
+            <th>Detalle</th>
+        
+        </tr>
+    </thead>
+
+    {% if encontrados %}
+
+        {%  for encontrado in encontrados %}
+            <tbody>
+                <tr>
+                    <td>{{encontrado.email}}</td>
+                    <td>{{encontrado.name}}</td>
+                    <td>{{encontrado.last_name}}</td>
+                    {% if encontrado.active == True %}
+                    <td>Activo</td>
+                    {% else %}
+                    <td>Bloqueado</td>
+                    {% endif %}
+                    <td><a href="{{ url_for('users.show', id = encontrado.id) }}" class="btn btn-primary">Ver</a></td>                   
+                </tr>
+            </tbody>
+        {% endfor %}
+
+        
+    {% endif %}
+</table>
+
+    
+{% endblock %}
+

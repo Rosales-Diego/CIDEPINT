@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div align="center">
+    <h1>Detalles del Servicio</h1>
+    <br>
+
+    <table  border="1">
+        <tr>
+            <th>Nombre del Servicio</th>
+            <td>{{ service.name }}</td>
+        </tr>
+        <tr>
+            <th>Descripción</th>
+            <td>{{ service.description }}</td>
+        </tr>
+        <tr>
+            <th>Palabras Clave</th>
+            <td>
+                <ul>
+                    {% for key in list_key %}
+                        <li>{{ key }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Centros Autorizados</th>
+            <td>
+                <ul>
+                    {% for cent in list_cent %}
+                        <li>{{ cent }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <th>Tipo de Servicio</th>
+            <td>{{ service.type_of_service.value }}</td>
+        </tr>
+        <tr>
+            <th>Habilitado</th>
+            <td>{{ "Sí" if service.enabled else "No" }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Actualización</th>
+            <td>{{ service.updated_at }}</td>
+        </tr>
+        <tr>
+            <th>Fecha de Inserción</th>
+            <td>{{ service.inserted_at }}</td>
+        </tr>
+        <tr>
+            <th>Insitucion</th>
+            <td>{{ service.institutions_id }}</td>
+        </tr>
+    </table>
+    <br>
+    <a href="{{ url_for('service.show_request', service_id=service.id) }}" class="btn btn-primary">Mostrar listado de Solicitudes 📝</a>
+    <a href="{{ url_for('service.update', service_id=service.id) }}" class="btn btn-primary">Update</a>
+    <a href="{{ url_for('service.destroy', service_id=service.id) }}" class="btn btn-primary">Destroy</a>
+    <a href="{{ url_for('service.list_services', institution_id=service.institutions_id ) }}" class="btn btn-primary">Ir a la lista de servicios</a>
+</div>
+<br>
+{% endblock %}

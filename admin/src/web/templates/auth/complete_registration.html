@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %}Registro{% endblock %}
+{% block head %}
+    Registro
+{% endblock %}
+{% block content %}
+    <h1>Último paso, solo completa con tus datos y elige una contraseña</h1>
+    <form action="{{ url_for('auth.complete_registration', token=token)|safe  }}" method="POST">
+        <input type="text" name="name" placeholder="Nombre" required><br><br>
+        <input type="text" name="last_name" placeholder="Apellido" required><br><br>
+        <input type="text" name="email" placeholder="Nombre de Usuario" required><br><br>
+        <input type="password" name="password" placeholder="Contraseña" required><br><br>
+        <input type="submit" value="Registrarme">
+    </form>
+
+{% endblock %}

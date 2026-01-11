@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+                <img src="../../../static/img/LOGO-CIDEPINT-tripartito.jpg" alt="Descripción de la imagen" width="140">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    {% if has_permission_bool(["institution_index"]) %}
+                    <li class="nav-item">
+                        <div class="institution-dropdown">
+                            <form id="institution-form" action="" method="post">
+                                <select name="institution_id" id="institution-select">
+                                    <option value="" disabled selected>Intituciones</option>
+                                    {% for institutions in session.get('institutions') %}
+                                    <option value="{{ institutions.id }}">{{ institutions.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="user_id" value="{{ user_id }}">
+                                <input type="submit" value="Elegir">
+                            </form>
+                        </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                var form = document.getElementById("institution-form");
+                                var select = document.getElementById("institution-select");
+                                form.addEventListener("submit", function (event) {
+                                    // Obtén el valor seleccionado en el menú desplegable
+                                    var selectedInstitutionId = select.value;
+
+                                    // Actualiza la acción del formulario antes de enviarlo
+                                    form.action = "{{ url_for('relation.update', institution_id=0) }}".replace("0", selectedInstitutionId);
+                                });
+                            });
+                        </script>
+                    </li>
+                    {% endif %}
+
+
+                    {% if has_permission_bool(["user_index"]) %}
+                    <li class="nav-item">
+                        <button class="tracking-button" onclick="window.location.href='/usuarios'">Ver Usuarios</button>
+                    </li>
+                    {% endif %}
+
+                    {% if has_permission_bool(["institution_index"]) %}
+                    <li class="nav-item">
+                        <button class="list-institution-button" onclick="window.location.href='/instituciones'">Ver Instituciones</button>
+                    </li>
+                    {% endif %}
+
+                    {% if is_authenticated(session) %}
+                    <li class="nav-item">
+                        <button class="tracking-button" onclick="window.location.href='/me_requests'">Ver mis solicitudes</button>
+                    </li>
+                    {% endif %}
+
+                    <li class="nav-item">
+                        <div class="user-dropdown">
+                            <button class="user-button">Usuario/Cuenta</button>
+                            <div class="user-dropdown-content">
+                                {% if is_authenticated(session) %}
+                                    <a href={{ url_for('users.get_update', id=session.get('user').id ) }}>Perfil</a>
+                                    <a href="/configuration">Configuración</a>
+                                    <a href="/auth/logout" onclick="return confirm('¿Está seguro que quiere Cerrar sesión?')">Cerrar Sesión</a>
+                                {% else %}
+                                    <a href="/">Iniciar Sesión</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <div align:center>
+        {% if page and total_pages %}
+            <style>
+                .pagination {
+                    display: inline-block;
+                    text-align: center;
+                    margin-top: 20px;
+                }
+    
+                .pagination span {
+                    margin-right: 10px;
+                }
+    
+                .pagination a {
+                    display: inline-block;
+                    padding: 8px 16px;
+                    text-decoration: none;
+                    color: white;
+                    background-color: #007bff;
+                    border-radius: 5px;
+                    margin-right: 5px;
+                }
+    
+                .pagination a:hover {
+                    background-color: #0056b3;
+                }
+            </style>
+    
+            <div class="pagination">
+                <span>Página {{ page }} de {{ total_pages }}</span>
+                <br>
+                <br>
+                {% if page > 1 %}
+                    <a href="?page=1">Primera</a>
+                    <a href="?page={{ page - 1 }}">Anterior</a>
+                {% endif %}
+                {% if page < total_pages %}
+                    <a href="?page={{ page +1  }}">Siguiente</a>
+                    <a href="?page={{ total_pages }}">Última</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    
+
+    <div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div
+                class="flash-message {% if category == 'error' %}error{% elif category == 'info' %}info{% elif category == 'success' %}success{% endif %}">
+                <div class="flash-message-content">
+                    {{ message }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+    <footer>
+        <div class="text-center">  
+            {% if session.get('contacto') %}
+                {{session.get('contacto')}}
+            {% endif %}
+        </div>
+        <p>© 2023 Grupo 24</p>
+    </footer>
+</body>
+
+</html>

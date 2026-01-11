@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Información de la Institución</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <td>{{ institution.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ institution.name }}</td>
+        </tr>
+        <tr>
+            <th>Información de Contacto</th>
+            <td>{{ institution.contact_info }}</td>
+        </tr>
+        <tr>
+            <th>Dirección</th>
+            <td>{{ institution.address }}</td>
+        </tr>
+        <tr>
+            <th>Ubicación</th>
+            <td>{{ institution.location }}</td>
+        </tr>
+        <tr>
+            <th>Página Web</th>
+            <td>{{ institution.web }}</td>
+        </tr>
+        <tr>
+            <th>Palabras Clave</th>
+            <td>{{ institution.key_words }}</td>
+        </tr>
+        <tr>
+            <th>Horario de Trabajo</th>
+            <td>{{ institution.work_schedule }}</td>
+        </tr>
+    </table>
+<br>
+<h3>Servicios de la insitucion</h3>
+
+{% if items %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Tipo</th>
+            <th>Habilitado</th>
+        </tr>
+    </thead>
+        {%  for ser in items %}
+            <tbody>
+                <tr>
+                    <td>{{ser.name}}</td>
+                    <td>{{ser.description}}</td>
+                    <td>{{ser.type_of_service.value}}</td>
+
+                    {%if ser.enabled %}
+                    <td>Activo</td>
+                    {% else %}
+                    <td>Inactivo</td>
+                    {% endif %}                  
+                </tr>
+            </tbody>
+        {% endfor %}  
+</table>
+{% endif %}
+
+    <a href="{{ url_for('institutions.get_update', id=institution.id) }}" class="btn btn-primary">Actualizar</a>
+    <a href="{{ url_for('institutions.destroy', id=institution.id) }}" class="btn btn-primary">Borrar</a>
+    <a href="/instituciones"  class="btn btn-primary" >Volver al listado de instituciones</a>
+{% endblock %}

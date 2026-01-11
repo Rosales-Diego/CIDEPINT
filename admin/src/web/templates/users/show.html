@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <h1>Detalles del Usuario</h1>
+    <table border="1">
+        <tr>
+            <th>Atributo</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td>ID:</td>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <td>Nombre:</td>
+            <td>{{ user.name }}</td>
+        </tr>
+        <tr>
+            <td>Apellido:</td>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <td>Activo:</td>
+            <td>{{ "Sí" if user.active else "No" }}</td>
+        </tr>
+        
+    </table>
+
+    <a href="{{ url_for('users.get_update', id=user.id) }}" class="btn btn-primary">Actualizar</a>
+    <a href="{{ url_for('users.destroy', id=user.id) }}" class="btn btn-primary">Borrar</a>
+
+    <a href="/usuarios" class="btn btn-primary" >Volver al listado de usuarios</a>
+{% endblock %}

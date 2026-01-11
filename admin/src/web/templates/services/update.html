@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block head %}
+    Página Principal
+{% endblock %}
+
+{% block content %}
+    <head>
+        <title>Editar Servicio</title>
+    </head>
+    <body>
+    <h1>Editar Servicio</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div>
+            <label for="name">Nombre:</label>
+            {{ form.name(class="form-control") }}
+            {% if form.name.errors %}
+                <ul class="errors">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="description">Descripción:</label>
+            {{ form.description(class="form-control") }}
+            {% if form.description.errors %}
+                <ul class="errors">
+                    {% for error in form.description.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="search_keywords">Palabras Clave:</label>
+            {{ form.search_keywords(class="form-control") }}
+            {% if form.search_keywords.errors %}
+                <ul class="errors">
+                    {% for error in form.search_keywords.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="authorized_centers">Centros Autorizados:</label>
+            {{ form.authorized_centers(class="form-control") }}
+             {% if form.authorized_centers.errors %}
+                <ul class="errors">
+                    {% for error in form.authorized_centers.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div>
+            <label for="type_of_service">Tipo de Servicio:</label>
+            {{ form.type_of_service(class="form-control") }}
+        </div>
+        <div>
+            <label for="enabled">Habilitado:</label>
+            {{ form.enabled(class="form-check-input") }}
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('¿Desea guardar los cambios?')">Guardar Cambios</button>
+    </form>
+</body>
+{% endblock %}
